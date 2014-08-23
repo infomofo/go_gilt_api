@@ -4,15 +4,14 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-	"time"
 )
 
 const (
 	BaseUrl = "https://api.gilt.com/v1/"
-	Women = "women"
-	Men = "men"
-	Kids = "kids"
-	Home = "home"
+	Women   = "women"
+	Men     = "men"
+	Kids    = "kids"
+	Home    = "home"
 )
 
 type GiltApi struct {
@@ -31,9 +30,6 @@ type response struct {
 	data interface{}
 	err  error
 }
-
-const DEFAULT_DELAY = 0 * time.Second
-const DEFAULT_CAPACITY = 5
 
 //NewGiltApi takes an application-specific api token returns a GiltApi struct for that application.
 //The GiltApi struct can be used for accessing any of the endpoints available.

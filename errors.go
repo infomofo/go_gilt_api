@@ -10,8 +10,7 @@ import (
 	"time"
 )
 
-const (
-)
+const ()
 
 type ApiError struct {
 	StatusCode int
