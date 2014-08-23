@@ -1,5 +1,34 @@
 package go_gilt_api
 
+//Package go_gilt_api provides structs and functions for accessing version 1
+//of the Gilt API.
+//
+//Successful API queries return native Go structs that can be used immediately,
+//with no need for type assertions.
+//
+//Authentication
+//
+//Obtain an api key on api.gilt.com and instantiate a client with:
+//
+//  api := go_gilt_api.NewGiltApi("your-api-key")
+//
+//
+//Queries
+//
+//Executing queries on an authenticated GiltApi struct is simple.
+//
+//  activeSales, err := api.GetSalesActive()
+//  for _ , sale := range searchResult {
+//      fmt.Print(sale.Name)
+//  }
+//
+//Endpoints
+//
+//go_gilt_api implements some of the endpoints defined in the Gilt API documentation: https://dev.gilt.com/documentation/resources.html.
+//For clarity, in most cases, the function name is simply the name of the HTTP method and the endpoint (e.g., the endpoint `GET /sales/active` is provided by the function `GetSalesActive`).
+//
+//More detailed information about the behavior of each particular endpoint can be found at the official Gilt API documentation.
+
 import (
 	"encoding/json"
 	"io/ioutil"
@@ -46,7 +75,7 @@ func (c GiltApi) addApiKey(urlStr string) string {
 	return urlStr + "?apikey=" + c.apiKey
 }
 
-// apiGet issues a GET request to the Twitter API and decodes the response JSON to data.
+// apiGet issues a GET request to the Gilt API and decodes the response JSON to data.
 func (c GiltApi) apiGet(urlStr string, data interface{}) error {
 	resp, err := http.Get(c.addApiKey(urlStr))
 	if err != nil {
@@ -56,7 +85,7 @@ func (c GiltApi) apiGet(urlStr string, data interface{}) error {
 	return decodeResponse(resp, data)
 }
 
-// decodeResponse decodes the JSON response from the Twitter API.
+// decodeResponse decodes the JSON response from the Gilt API.
 func decodeResponse(resp *http.Response, data interface{}) error {
 	if resp.StatusCode != 200 {
 		return newApiError(resp)

@@ -49,9 +49,9 @@ func (aerr ApiError) Error() string {
 //    }
 //
 
-//GiltErrorResponse has an array of Twitter error messages
+//GiltErrorResponse has an array of Gilt error messages
 //It satisfies the "error" interface
-//For the most part, Twitter seems to return only a single error message
+//For the most part, Gilt seems to return only a single error message
 //Currently, we assume that this always contains exactly one error message
 type GiltErrorResponse struct {
 	Errors []GiltError `json:"errors"`
@@ -65,7 +65,7 @@ func (tr GiltErrorResponse) Error() string {
 	return tr.Errors[0].Message
 }
 
-//GiltError represents a single Twitter error messages/code pair
+//GiltError represents a single Gilt error messages/code pair
 type GiltError struct {
 	Message string `json:"message"`
 	Code    int    `json:"code"`
