@@ -20,6 +20,7 @@ api := go_gilt_api.NewGiltApi("your-api-key")
 ````
 
 ### Endpoints
+
 go_gilt_api will implement the endpoints defined in the [api.gilt.com resources](https://dev.gilt.com/documentation/resources.html) For clarity, in most 
 cases, the function name is simply the name of the HTTP method and the endpoint 
 (e.g., the endpoint `GET /sales/active` is provided by the function `GetSalesActive`).
