@@ -4,12 +4,14 @@ const (
 	SalesUrl = "sales"
 )
 
-type Sales struct {
+type SalesResponse struct {
 	Sales []Sale `json:"sales"`
 }
 
-func (a GiltApi) GetSalesActive() (activeSales Sales, err error) {
+// Returns a list of active sales on gilt.com
+func (a GiltApi) GetSalesActive() (sales []Sale, err error) {
 	response_ch := make(chan response)
+	activeSales := new(SalesResponse)
 	a.queryQueue <- query{BaseUrl + SalesUrl + "/active.json", &activeSales, response_ch}
-	return activeSales, (<-response_ch).err
+	return activeSales.Sales, (<-response_ch).err
 }

@@ -6,8 +6,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strconv"
-	"time"
 )
 
 const ()
@@ -50,24 +48,6 @@ func (aerr ApiError) Error() string {
 //  	  }
 //    }
 //
-func (aerr *ApiError) RateLimitCheck() (isRateLimitError bool, nextWindow time.Time) {
-	// TODO  check for error code 130, which also signifies a rate limit
-	if aerr.StatusCode == 429 {
-		if reset := aerr.Header.Get("X-Rate-Limit-Reset"); reset != "" {
-			if resetUnix, err := strconv.ParseInt(reset, 10, 64); err == nil {
-				resetTime := time.Unix(resetUnix, 0)
-				// Reject any time greater than an hour away
-				if resetTime.Sub(time.Now()) > time.Hour {
-					return true, time.Now().Add(15 * time.Minute)
-				}
-
-				return true, resetTime
-			}
-		}
-	}
-
-	return false, time.Time{}
-}
 
 //GiltErrorResponse has an array of Twitter error messages
 //It satisfies the "error" interface
