@@ -33,5 +33,7 @@ cases, the function name is simply the name of the HTTP method and the endpoint
 		fmt.Errorf("GetSearch yielded error %s", err.Error())
 		panic(err)
 	}
-	fmt.Println(activeSales)
+	for _ , sale := range searchResult {
+    fmt.Print(sale.Name)
+  }
 ````
