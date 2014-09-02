@@ -1,17 +1,17 @@
 package go_gilt_api
 
 const (
-	SalesUrl = "sales"
+	salesUrl = "sales"
 )
 
 type salesResponse struct {
-	Sales []Sale `json:"sales"`
+	Sales []SaleListObject `json:"sales"`
 }
 
 // Returns a list of active sales on gilt.com
-func (a GiltApi) GetSalesActive() (sales []Sale, err error) {
+func (a GiltApi) GetSalesActive() (sales []SaleListObject, err error) {
 	response_ch := make(chan response)
 	activeSales := new(salesResponse)
-	a.queryQueue <- query{BaseUrl + SalesUrl + "/active.json", &activeSales, response_ch}
+	a.queryQueue <- query{baseUrl + salesUrl + "/active.json", &activeSales, response_ch}
 	return activeSales.Sales, (<-response_ch).err
 }

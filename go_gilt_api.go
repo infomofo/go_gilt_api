@@ -1,5 +1,3 @@
-package go_gilt_api
-
 //Package go_gilt_api provides structs and functions for accessing version 1
 //of the Gilt API.
 //
@@ -28,6 +26,7 @@ package go_gilt_api
 //For clarity, in most cases, the function name is simply the name of the HTTP method and the endpoint (e.g., the endpoint `GET /sales/active` is provided by the function `GetSalesActive`).
 //
 //More detailed information about the behavior of each particular endpoint can be found at the official Gilt API documentation.
+package go_gilt_api
 
 import (
 	"encoding/json"
@@ -36,17 +35,22 @@ import (
 )
 
 const (
-	BaseUrl = "https://api.gilt.com/v1/"
-	Women   = "women"
-	Men     = "men"
-	Kids    = "kids"
-	Home    = "home"
+	baseUrl = "https://api.gilt.com/v1/"
+)
+
+type Store string
+
+const (
+	Women Store = "women"
+	Men   Store = "men"
+	Kids  Store = "kids"
+	Home  Store = "home"
 )
 
 type GiltApi struct {
 	apiKey     string
 	queryQueue chan query
-	HttpClient *http.Client
+	httpClient *http.Client
 }
 
 type query struct {
