@@ -94,7 +94,9 @@ func (c GiltApi) addApiKey(urlStr string) string {
 
 // apiGet issues a GET request to the Gilt API and decodes the response JSON to data.
 func (c GiltApi) apiGet(urlStr string, data interface{}) error {
-	resp, err := http.Get(c.addApiKey(urlStr))
+	tokenUrl := c.addApiKey(urlStr)
+	//	println(tokenUrl)
+	resp, err := http.Get(tokenUrl)
 	if err != nil {
 		return err
 	}
