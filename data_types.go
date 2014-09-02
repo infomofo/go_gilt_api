@@ -71,3 +71,9 @@ type SaleDetailObject struct {
 	Ends     time.Time `json:"ends"`
 	Products []string  `json:"products"`
 }
+
+// A data structure representing sizes
+// The top key is the size chart group (i.e. Women's Apparel)
+// That key maps to a a value map where the key is the size label and the value is a unique identifier for that size
+// for more information see: https://dev.gilt.com/documentation/data_structures.html#product_search_sizes
+type Sizes map[string]map[string]string
