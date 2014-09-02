@@ -2,9 +2,8 @@ package go_gilt_api
 
 const (
 	salesUrl     = "sales"
-	activeJson   = "active.json"
-	upcomingJson = "upcoming.json"
-	detailJson   = "detail.json"
+	activeJson   = "/active.json"
+	upcomingJson = "/upcoming.json"
 )
 
 type salesResponse struct {
@@ -16,7 +15,7 @@ type salesResponse struct {
 func (a GiltApi) GetSalesActive() (sales []SaleListObject, err error) {
 	response_ch := make(chan response)
 	activeSales := new(salesResponse)
-	a.queryQueue <- query{baseUrl + salesUrl + "/" + activeJson, &activeSales, response_ch}
+	a.queryQueue <- query{baseUrl + salesUrl + activeJson, &activeSales, response_ch}
 	return activeSales.Sales, (<-response_ch).err
 }
 
@@ -24,7 +23,7 @@ func (a GiltApi) GetSalesActive() (sales []SaleListObject, err error) {
 func (a GiltApi) GetSalesActiveInStore(store Store) (sales []SaleListObject, err error) {
 	response_ch := make(chan response)
 	activeSales := new(salesResponse)
-	a.queryQueue <- query{baseUrl + salesUrl + "/" + string(store) + "/" + activeJson, &activeSales, response_ch}
+	a.queryQueue <- query{baseUrl + salesUrl + "/" + string(store) + activeJson, &activeSales, response_ch}
 	return activeSales.Sales, (<-response_ch).err
 }
 
@@ -33,7 +32,7 @@ func (a GiltApi) GetSalesActiveInStore(store Store) (sales []SaleListObject, err
 func (a GiltApi) GetSalesUpcoming() (sales []SaleListObject, err error) {
 	response_ch := make(chan response)
 	upcomingSales := new(salesResponse)
-	a.queryQueue <- query{baseUrl + salesUrl + "/" + upcomingJson, &upcomingSales, response_ch}
+	a.queryQueue <- query{baseUrl + salesUrl + upcomingJson, &upcomingSales, response_ch}
 	return upcomingSales.Sales, (<-response_ch).err
 }
 
@@ -41,7 +40,7 @@ func (a GiltApi) GetSalesUpcoming() (sales []SaleListObject, err error) {
 func (a GiltApi) GetSalesUpcomingInStore(store Store) (sales []SaleListObject, err error) {
 	response_ch := make(chan response)
 	upcomingSales := new(salesResponse)
-	a.queryQueue <- query{baseUrl + salesUrl + "/" + string(store) + "/" + upcomingJson, &upcomingSales, response_ch}
+	a.queryQueue <- query{baseUrl + salesUrl + "/" + string(store) + upcomingJson, &upcomingSales, response_ch}
 	return upcomingSales.Sales, (<-response_ch).err
 }
 
@@ -49,7 +48,7 @@ func (a GiltApi) GetSalesUpcomingInStore(store Store) (sales []SaleListObject, e
 // for more info see: https://dev.gilt.com/documentation/resources.html#toc_165
 func (a GiltApi) GetSaleDetail(store Store, saleKey string) (saleDetails SaleDetailObject, err error) {
 	response_ch := make(chan response)
-	a.queryQueue <- query{baseUrl + salesUrl + "/" + string(store) + "/" + saleKey + "/" + detailJson, &saleDetails, response_ch}
+	a.queryQueue <- query{baseUrl + salesUrl + "/" + string(store) + "/" + saleKey + detailJson, &saleDetails, response_ch}
 	return saleDetails, (<-response_ch).err
 }
 

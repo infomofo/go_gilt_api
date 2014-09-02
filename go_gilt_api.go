@@ -35,16 +35,29 @@ import (
 )
 
 const (
-	baseUrl = "https://api.gilt.com/v1/"
+	baseUrl    = "https://api.gilt.com/v1/"
+	detailJson = "/detail.json"
 )
 
+// Gilt sales are organized into one of four stores, broadly representing the categories of the products in the sale.
+// For more information, see: https://dev.gilt.com/documentation/resources.html#toc_161
 type Store string
 
 const (
 	Women Store = "women"
-	Men   Store = "men"
-	Kids  Store = "kids"
-	Home  Store = "home"
+	Men         = "men"
+	Kids        = "kids"
+	Home        = "home"
+)
+
+// Describes a product's availability
+// https://dev.gilt.com/documentation/data_structures.html#toc_135
+type InventoryStatus string
+
+const (
+	SoldOut  InventoryStatus = "sold out"
+	ForSale                  = "for sale"
+	Reserved                 = "reserved"
 )
 
 type GiltApi struct {
